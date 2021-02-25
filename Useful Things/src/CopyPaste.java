@@ -52,3 +52,32 @@ class ExamplesClassName {
                                        "arg1", "arg2");
   }
 }
+
+// ty abijit
+
+//represents a list of 
+interface ILo {
+  // methods go here
+}
+
+//represents an empty list of 
+class MtLo implements ILo {
+  MtLo() {}
+
+  // methods go here
+}
+
+
+//represent a non-empty list of 
+class ConsLo implements ILo {
+  X first;
+  ILo rest;
+
+  ConsLo(X first, ILo rest) {
+    this.first = first;
+   this.rest = rest;
+  }
+
+// methods go here
+  
+}
