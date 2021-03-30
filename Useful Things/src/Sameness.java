@@ -20,10 +20,10 @@ class Sameness {
   boolean comparingPrimitives(Tester t) {
     return //integers
            t.checkExpect(3 == 4, false)
-        && t.checkExpect(4 == 4, true)
+        //&& t.checkExpect(4 == 4, true)
            //booleans
         && t.checkExpect(true == false, false)
-        && t.checkExpect(true == (5 > 3), true)
+        //&& t.checkExpect(true == (5 > 3), true)
            //Strings
         && t.checkExpect("hello".equals("hello"), true)
         && t.checkExpect("hello".equals("hi"), false)
