@@ -38,6 +38,7 @@ class ConsListGen<T> implements IListGen<T> {
 // - can add any methods we want
 // - can more easily do things with the first value
 // cons:
+// - we need to deal with the internal functions
 abstract class AMutableList<T> {
   Sentinel<T> sentinel;
   AMutableList(Sentinel<T> sentinel) {
@@ -95,42 +96,48 @@ class ConsMutableList<T> extends ANode<T> {
 }
 
 // 4. ArrayLists
-/*class*/ interface ArrayList<T> {
+// pros:
+// - premade; we don't have to know how it functions structurally
+// cons:
+// - we can't add methods to the class; we have to make an ArrayUtils class
+/*not really*/ abstract class ArrayList<T> {
   // returns the number of elements in the list
-  int size();
+  abstract int size();
   // EFFECT: Adds the given value at the end of the list
-  boolean add(T value);
+  abstract boolean add(int index, T value);
   // Returns the value at the given index
-  T get(int index);
+  abstract T get(int index);
   // Returns the current value at the given index
   // EFFECT: Updates the value at the given index to the given new value
-  T set(int index, T newValue);
+  abstract T set(int index, T newValue);
   // Returns the element that is removed
   // EFFECT: Removes the element at the specified position in this list.
-  T remove(int index);
+  abstract T remove(int index);
 }
 
 // 5. deques
-/*class*/ interface Deque<T> {
-  Sentinel<T> header;
+// pros:
+// - can function like a stack or a mutable list
+/*not really*/ abstract class Deque<T> {
+  SentinelDeque<T> header;
   // Returns the number of items in this Deque (excluding the sentinel)
-  int size();
+  abstract int size();
   // EFFECT: inserts the given value at the front of the Deque
-  void addToHead(T value);
+  abstract void addToHead(T value);
   // EFFECT: inserts the given value at the back of the Deque
-  void addToTail(T value);
+  abstract void addToTail(T value);
   // Returns the current first item of the Deque
   // EFFECT: removes the current first item of the Deque
-  T removeFromHead();
+  abstract T removeFromHead();
   // Returns the current last item of the Deque
   // EFFECT: removes the current last item of the Deque
-  T removeFromTail();
+  abstract T removeFromTail();
 }
 class ANodeDeque<T> {
   ANodeDeque<T> next;
   ANodeDeque<T> prev;
 }
-class SentinelDeque<T> extends ANodeDeque<T> {}
+class SentinelDeque<T> extends ANodeDeque<T> { }
 class NodeDeque<T> extends ANodeDeque<T> {
   T data;
 }

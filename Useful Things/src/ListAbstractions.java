@@ -17,7 +17,9 @@ interface ILoString {
   // turns this list of strings into a single string
   String fold();
   // turns this list and the given list into a single list
-  ILoString fold2(ILoString that);
+  ILoString interleave(ILoString that);
+  // helper for interleave
+  ILoString interleaveHelp();
 }
 
 class MtLoString implements ILoString {
@@ -45,8 +47,12 @@ class MtLoString implements ILoString {
     return "";
   }
 
-  public ILoString fold2(ILoString that) {
-    return ;
+  public ILoString interleave(ILoString that) {
+    return that.interleaveHelp();
+  }
+
+  public ILoString interleaveHelp() {
+    return new MtLoString();
   }
 }
 
@@ -64,7 +70,7 @@ class ConsLoString implements ILoString {
   }
   
   public ILoString insert(String s) {
-    if (/*s should be added to front*/) {
+    if (false/*s should be added to front*/) {
       return new ConsLoString(s, this);
     }
     else {
@@ -73,7 +79,7 @@ class ConsLoString implements ILoString {
   }
 
   public ILoString filter() {
-    if(/*this.first meets condition to be kept*/) {
+    if(true/*this.first meets condition to be kept*/) {
       return new ConsLoString(this.first, this.rest.filter());
     }
     else {
@@ -82,12 +88,12 @@ class ConsLoString implements ILoString {
   }
 
   public boolean andmap() {
-    return /*whether this.first meets condition*/
+    return true/*whether this.first meets condition*/
         && this.rest.andmap();
   }
 
   public boolean ormap() {
-    return /*whether this.first meets condition*/
+    return false/*whether this.first meets condition*/
         || this.rest.ormap();
   }
 
@@ -95,7 +101,11 @@ class ConsLoString implements ILoString {
     return this.first + " " + this.rest.fold();
   }
   
-  public ILoString fold2(ILoString that) {
-    return new ConsLoString(this.first, that.fold2(this.rest));
+  public ILoString interleave(ILoString that) {
+    return new ConsLoString(this.first, that.interleave(this.rest));
+  }
+
+  public ILoString interleaveHelp() {
+    return new ConsLoString(this.first, this.rest.interleaveHelp());
   }
 }
