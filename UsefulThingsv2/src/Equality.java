@@ -1,4 +1,4 @@
-import tester.*;
+import tester.Tester;
 
 /* Sameness is quantified by these properties:
  * 
@@ -15,6 +15,16 @@ import tester.*;
  * Intensional equality: two items are intensionally equal if they are the exact same object.
  * - checked with ==
  * - aliased objects are intensionally equal
+ * 
+ * hash codes and equality:
+ * - If we override equals such that objA.equals(objB) is true, then we must
+ *   also override hashCode to ensure objA.hashCode() == objB.hashCode().
+ * - If we override equals such that objA.equals(objB) is false, then 
+ *   objA.hashCode() and objB.hashCode() may or may not be the same.
+ * - If we override hashCode such that objA.hashCode() != objB.hashCode(), 
+ *   then we must also override equals to ensure objA.equals(objB) is false.
+ * - If we override hashCode such that objA.hashCode() == objB.hashCode(), 
+ *   then objA.equals(objB) may or may not be true.
  */
 
 class Sameness {
@@ -70,6 +80,14 @@ abstract class AFoo implements IFoo {
   
   // is this IFoo the same as that Z?
   public boolean sameZ(Z that) { return false; }
+
+  // allows us to use .equals on IFoo
+  public boolean equals(Object other) {
+    if (!(other instanceof IFoo)) { return false; }
+    // this cast is safe, because we just checked instanceof
+    IFoo that = (IFoo)other;
+    return this.sameFoo(that);
+}
 }
 
 class X extends AFoo {
