@@ -8,6 +8,15 @@ import tester.*;
  * - Totality: we can compare any two objects of the same type, and obtain a correct answer.
  */
 
+/*
+ * Extensional equality: two items are extensionally equal if their fields are the same: 
+ * either they’re equal primitive values, or they’re objects that are themselves extensionally equal.
+ * - checked with .equals()
+ * Intensional equality: two items are intensionally equal if they are the exact same object.
+ * - checked with ==
+ * - aliased objects are intensionally equal
+ */
+
 class Sameness {
   String string1;
   int int2;
